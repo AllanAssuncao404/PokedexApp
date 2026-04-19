@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getPokemons, getPokemonDetails } from '../services/api';
 import { Pokemon } from '../types/Pokemon';
 import { PokemonCard } from '../components/PokemonCard';
@@ -7,6 +8,7 @@ import { PokemonCard } from '../components/PokemonCard';
 const LIMIT = 30;
 
 export const PokedexScreen = () => {
+  const insets = useSafeAreaInsets();
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -104,7 +106,7 @@ export const PokedexScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
       <Text style={styles.title}>Pokédex</Text>
       <TextInput
         placeholder="Buscar pokémon..."
@@ -126,7 +128,7 @@ export const PokedexScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 60, paddingHorizontal: 16 },
+  container: { flex: 1, paddingHorizontal: 16 },
   title: { fontSize: 32, fontWeight: 'bold', marginBottom: 12 },
   input: {
     backgroundColor: '#f1f1f1',
