@@ -46,6 +46,25 @@ export const PokedexScreen = () => {
     );
   }
 
+  const renderEmptyList = () => {
+    if (search.trim()) {
+      return (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>
+            Nenhum Pokémon encontrado para &apos;{search}&apos;.
+          </Text>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>
+          Nenhum Pokémon para exibir no momento.
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pokédex</Text>
@@ -59,6 +78,7 @@ export const PokedexScreen = () => {
         keyExtractor={item => item.id.toString()}
         numColumns={2}
         renderItem={({ item }) => <PokemonCard pokemon={item} />}
+        ListEmptyComponent={renderEmptyList}
       />
     </View>
   );
@@ -87,6 +107,17 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     color: '#E63F34',
+    textAlign: 'center',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#888',
     textAlign: 'center',
   },
 });
